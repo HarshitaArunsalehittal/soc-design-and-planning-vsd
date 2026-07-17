@@ -216,9 +216,16 @@ During synthesis, the following information can be observed:
 These reports help evaluate the synthesized design before moving to physical implementation.
 
 ---
+<img width="1280" height="768" alt="Screenshot from 2026-07-13 13-57-42" src="https://github.com/user-attachments/assets/d996889d-6610-448a-98a6-7a646bdf6713" />
+Calculation of Flop Ratio and DFF % from synthesis statistics report file
+Flop Ratio=1613/14876
+flop ratio=0.108429685
+% of the DFF'S=0.108429685*100=10..84296854%
+
 
 ## Day 1 Summary
 
 On the first day, I became familiar with the complete ASIC design flow and the OpenLANE environment. I successfully explored the Sky130 PDK, understood the directory structure, prepared the design, and executed RTL synthesis. The generated synthesis reports provided valuable information about area, cell usage, and timing characteristics.
 
----
+
+
