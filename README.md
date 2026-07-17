@@ -519,23 +519,30 @@ Now that we have entered the OpenLANE flow contained docker sub-system we can in
 ./flow.tcl -interactive
 
 Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+```tcl
 package require openlane 0.9
-
+```
 Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+```
 prep -design picorv32a -tag 13-07_17-15 -overwrite
-
+```
 Adiitional commands to include newly added lef to openlane flow
+```tcl
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
 add_lefs -src $lefs
+```
 Command to display current value of variable SYNTH_STRATEGY
+```tcl
 echo $::env(SYNTH_STRATEGY)
-
+```
 Command to set new value for SYNTH_STRATEGY
+```tcl
 set ::env(SYNTH_STRATEGY) "DELAY 3"
-
+```
 Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled
+```tcl
 echo $::env(SYNTH_BUFFERING)
-
+```
 Command to display current value of variable SYNTH_SIZING
 echo $::env(SYNTH_SIZING)
 
