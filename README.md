@@ -1,54 +1,218 @@
-# soc-design-and-planning-vsd
-RTL-to-GDSII physical design flow using OpenLANE &amp; Sky130 PDK | VSD SoC Design and Planning Workshop.
-Digital VLSI SoC Design and Planning — RTL to GDSII
+# VSD SoC Design Workshop
 
-    A 2-week hands-on workshop on complete RTL-to-GDSII flow for digital VLSI SoC design, organised by VSD (VLSI System Design) in collaboration with NASSCOM. This repository documents my learning, lab outputs, and key takeaways from each day.
+## Author
+**Harshita Arun Salehittal**
 
-Day 1 — Inception of Open-Source EDA, OpenLANE & Sky130 PDK
-Understanding the Chip Package
+This repository contains my notes, commands, observations, and screenshots from the **VSD SoC Design Workshop**. Throughout this workshop, I explored the complete ASIC Physical Design flow using **OpenLANE**, **Sky130 PDK**, **Magic**, **Netgen**, and other open-source EDA tools.
 
-When we look at any embedded board and point to what we call the "chip," we're actually looking at the package — a protective casing around the actual silicon die. The real chip sits in the centre of this package and communicates with the outside world via wire bonding — tiny wires that connect the chip's pads to the package pins.
-Inside the Chip: Core, Pads, and Die
+---
 
-Zooming into the chip itself, all signals between the chip and the external world pass through pads placed around the periphery. The region enclosed by the pads is called the core — this is where all the actual digital logic lives. Together, the core and the pads form the die, which is the fundamental unit of chip manufacturing.
+# Day 1 – Introduction to Open-Source ASIC Design and OpenLANE
 
-    Foundry — the place where chips are physically manufactured
-    Foundry IPs — IP blocks that require specialized process knowledge to implement (e.g., PLLs, SRAMs)
-    Macros — reusable, purely digital logic blocks
+## Objective
 
-From Software to Silicon — The ISA Bridge
+The first day focused on understanding the complete ASIC design flow, learning about open-source EDA tools, setting up the OpenLANE environment, and exploring the Sky130 Process Design Kit (PDK).
 
-A C program running on a chip goes through a multi-layer transformation:
+---
 
-    The C code is compiled into RISC-V assembly (or another ISA)
-    The assembler converts it to binary machine code (0s and 1s)
-    This binary pattern needs an RTL implementation of the ISA
-    The RTL gets synthesized and goes through the full PnR (Place and Route) flow to become a physical layout
+## ASIC Design Flow
 
-The system software stack (OS → Compiler → Assembler) acts as the bridge between what the programmer writes and what the hardware executes.
-Why Open-Source EDA Matters
+The standard ASIC implementation process consists of the following stages:
 
-For a fully open-source ASIC design flow, three things are needed:
+- RTL Design
+- Logic Synthesis
+- Floorplanning
+- Placement
+- Clock Tree Synthesis (CTS)
+- Routing
+- Static Timing Analysis (STA)
+- Physical Verification
+- GDSII Generation
 
-    RTL Designs (e.g., from opencores.org)
-    EDA Tools (synthesis, P&R, verification)
-    PDK Data (process-specific design rules, standard cell libraries)
+Each stage converts the design into a more detailed physical representation until it is ready for fabrication.
 
-Historically, PDKs were proprietary and distributed only under NDAs, making chip design inaccessible to most people. This changed in June 2020, when Google collaborated with SkyWater Technology to release the Sky130 PDK as the world's first open-source process design kit — a massive milestone for the VLSI community.
-OpenLANE and the Automated RTL to GDSII Flow
+---
 
-OpenLANE is an open-source flow built on top of multiple EDA tools that automates the journey from an RTL netlist all the way to the final GDSII layout file. It uses:
-Stage 	Tool(s) Used
-Synthesis 	Yosys, ABC
-Floorplan & PDN 	OpenROAD
-Placement 	OpenROAD
-CTS 	TritonCTS
-Routing 	FastRoute, TritonRoute
-SPEF Extraction 	OpenRCX
-GDS Streaming 	Magic, KLayout
-Timing Analysis 	OpenSTA
-DRC & LVS 	Magic, Netgen
-Lab — Running OpenLANE for picorv32a
-Setting Up and Invoking OpenLANE
+## OpenLANE Flow
 
-The very first step is to navigate to the OpenLANE working directory and launch the tool in interactive mode, which lets us run each stage step-by-step.
+OpenLANE is an automated RTL-to-GDSII flow built using several open-source EDA tools.
+
+Major tools included in OpenLANE are:
+
+- Yosys
+- OpenROAD
+- Magic
+- Netgen
+- TritonRoute
+- OpenSTA
+- KLayout
+
+These tools work together to automate the ASIC implementation process.
+
+---
+
+## Sky130 PDK
+
+The Sky130 Process Design Kit provides all the technology files required for physical design.
+
+It includes:
+
+- Standard Cell Libraries
+- LEF Files
+- Liberty Timing Files
+- GDS Layout Files
+- SPICE Models
+- DRC Rules
+- LVS Rules
+
+The Sky130 PDK is developed by Google and SkyWater Technology and is widely used for open-source ASIC design.
+
+---
+
+## Exploring the Directory Structure
+
+The workshop environment contains different directories that are required during implementation.
+
+### tools/
+
+The **tools** directory stores the software packages used throughout the workshop, including OpenLANE and supporting EDA applications.
+
+**Screenshot**
+
+![Tools Directory](images/day1/tools_directory.png)
+
+---
+
+### openlane_working_dir/
+
+This directory contains the OpenLANE flow and the Sky130 Process Design Kit.
+
+Important folders include:
+
+- openlane
+- pdks
+
+**Screenshot**
+
+![OpenLANE Directory](images/day1/openlane_directory.png)
+
+---
+
+### PDK Structure
+
+The PDK directory stores all technology-related files required for ASIC implementation.
+
+Important contents include:
+
+- Libraries
+- Technology LEF
+- Standard Cell LEF
+- Timing Libraries
+- SPICE Models
+
+**Screenshot**
+
+![PDK Structure](images/day1/pdk_structure.png)
+
+---
+
+## Launching Docker
+
+The workshop environment is started using Docker.
+
+Example command:
+
+```bash
+docker
+```
+
+---
+
+## Starting OpenLANE
+
+Navigate to the OpenLANE directory.
+
+```bash
+cd Desktop/work/tools/openlane_working_dir/openlane
+```
+
+Run Docker.
+
+```bash
+docker
+```
+
+Start OpenLANE.
+
+```bash
+./flow.tcl -interactive
+```
+
+Load the required package.
+
+```tcl
+package require openlane 0.9
+```
+
+---
+
+## Design Preparation
+
+Prepare the design before running synthesis.
+
+```tcl
+prep -design picorv32a
+```
+
+This command creates the working directory and loads all configuration files needed for implementation.
+
+**Screenshot**
+
+![Preparation](images/day1/prep_design.png)
+
+---
+
+## Running Logic Synthesis
+
+Logic synthesis converts the Verilog RTL into a gate-level netlist.
+
+Command:
+
+```tcl
+run_synthesis
+```
+
+After synthesis, OpenLANE generates reports containing:
+
+- Cell Count
+- Area
+- Timing
+- Flip-Flop Statistics
+- Gate Utilization
+
+**Screenshot**
+
+![Synthesis Output](images/day1/synthesis.png)
+
+---
+
+## Important Results
+
+During synthesis, the following information can be observed:
+
+- Total Standard Cells
+- Combinational Logic Cells
+- Sequential Cells
+- Chip Area
+- Worst Slack
+- Maximum Fanout
+
+These reports help evaluate the synthesized design before moving to physical implementation.
+
+---
+
+## Day 1 Summary
+
+On the first day, I became familiar with the complete ASIC design flow and the OpenLANE environment. I successfully explored the Sky130 PDK, understood the directory structure, prepared the design, and executed RTL synthesis. The generated synthesis reports provided valuable information about area, cell usage, and timing characteristics.
+
+---
