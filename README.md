@@ -1,4 +1,4 @@
-# VSD SoC Design Workshop
+<img width="807" height="409" alt="Screenshot 2026-07-17 183021" src="https://github.com/user-attachments/assets/26fb916f-b77b-4953-b523-9f6449e8dbea" /># VSD SoC Design Workshop
 
 ## Author
 **Harshita Arun Salehittal**
@@ -583,7 +583,7 @@ expand
 Abutment of power pins with other cell from library clearly visible
 <img width="1280" height="768" alt="Screenshot from 2026-07-16 16-29-03" src="https://github.com/user-attachments/assets/241fa0be-b157-4c37-a953-50a163e70248" />
 Commands to run STA in another terminal
-
+<img width="1280" height="768" alt="Screenshot from 2026-07-16 16-29-03" src="https://github.com/user-attachments/assets/241fa0be-b157-4c37-a953-50a163e70248" />
 Change directory to openlane
  ```bash
 cd Desktop/work/tools/openlane_working_dir/openlane
@@ -593,47 +593,92 @@ Command to invoke OpenSTA tool with script
 sta pre_sta.conf
 ```
 <img width="842" height="468" alt="Screenshot 2026-07-17 175833" src="https://github.com/user-attachments/assets/428293d0-83a5-4842-a157-dc4db3a1ec5a" />
+<img width="749" height="468" alt="Screenshot 2026-07-17 180742" src="https://github.com/user-attachments/assets/8b06a3f5-13a6-4f50-b3a8-3ab19cc78a12" />
 
  # Day 5  Final steps for RTL2GDS using tritonRoute and openSTA
  1. Perform generation of Power Distribution Network (PDN) and explore the PDN layout.
 Commands to perform all necessary stages up until now
 
 Change directory to openlane flow directory
+ ```bash
 cd Desktop/work/tools/openlane_working_dir/openlane
-
-#alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/openlane:v0.21'
-Since we have aliased the long command to 'docker' we can invoke the OpenLANE flow docker sub-system by just running this command
+```
+ ```bash
 docker
+```
 Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+```tcl
 ./flow.tcl -interactive
-
+```
 Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+ ```bash
+```
 package require openlane 0.9
 
 Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+ ```bash
 prep -design picorv32a
-
+```
 Addiitional commands to include newly added lef to openlane flow merged.lef
+ ```bash
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
 add_lefs -src $lefs
-
+```
 Command to set new value for SYNTH_STRATEGY
+ ```bash
 set ::env(SYNTH_STRATEGY) "DELAY 3"
-
+```
 Command to set new value for SYNTH_SIZING
+ ```bash
 set ::env(SYNTH_SIZING) 1
-
+```
 Now that the design is prepped and ready, we can run synthesis using following command
+ ```bash
 run_synthesis
-
+```
 Following commands are alltogather sourced in "run_floorplan" command
 
 
 Now we are ready to run placement
+ ```bash
 run_placement
-
+```
 With placement done we are now ready to run CTS
+ ```bash
 run_cts
-
+```
 Now that CTS is done we can do power distribution network
+ ```bash
 gen_pdn 
+```
+<img width="828" height="436" alt="Screenshot 2026-07-17 182948" src="https://github.com/user-attachments/assets/f9536d18-b6b0-4b1e-b1f4-515dc6a87be5" />
+<img width="807" height="409" alt="Screenshot 2026-07-17 183021" src="https://github.com/user-attachments/assets/800cce52-e90f-420b-baa0-460a0426c702" />
+Commands to load PDN def in magic in another terminal
+Change directory to path containing generated PDN def
+```bash
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/26-03_08-45/tmp/floorplan/
+```
+Command to load the PDN def in magic tool
+```bash
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def &
+```
+Screenshots of PDN def
+<img width="727" height="404" alt="Screenshot 2026-07-17 183223" src="https://github.com/user-attachments/assets/ecc7237d-f98b-4061-b742-35538a27a4f5" />
+<img width="834" height="447" alt="Screenshot 2026-07-17 183243" src="https://github.com/user-attachments/assets/133743c3-cc46-4387-b948-0b46783d01d0" />
+<img width="784" height="454" alt="Screenshot 2026-07-17 183303" src="https://github.com/user-attachments/assets/7a196f68-7211-4abc-9876-12f9e450b25c" />
+Commands to load routed def in magic in another terminal
+
+Change directory to path containing routed def
+```bash
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/26-03_08-45/results/routing/
+```
+Command to load the routed def in magic tool
+```bash
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.def &
+```
+Screenshots of routed def
+<img width="697" height="396" alt="Screenshot 2026-07-17 184141" src="https://github.com/user-attachments/assets/a07c1c3b-9585-425c-81c6-29b963bb5b58" />
+<img width="704" height="391" alt="Screenshot 2026-07-17 184215" src="https://github.com/user-attachments/assets/e47764fa-7c4d-4d98-8f0b-44a296e2556e" />
+<img width="713" height="380" alt="Screenshot 2026-07-17 184238" src="https://github.com/user-attachments/assets/0dd1ff6a-d0cd-4b38-b569-ac091d39cbf2" />
+Screenshot of fast route guide present in openlane/designs/picorv32a/runs/26-03_08-45/tmp/routing directory
+<img width="652" height="386" alt="Screenshot 2026-07-17 184309" src="https://github.com/user-attachments/assets/6157cb8a-48eb-4a9c-800d-c7d14363cc9a" />
