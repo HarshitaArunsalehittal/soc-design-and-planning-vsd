@@ -544,14 +544,17 @@ Command to display current value of variable SYNTH_BUFFERING to check whether it
 echo $::env(SYNTH_BUFFERING)
 ```
 Command to display current value of variable SYNTH_SIZING
+```tcl
 echo $::env(SYNTH_SIZING)
-
+```
 Command to set new value for SYNTH_SIZING
+```tcl
 set ::env(SYNTH_SIZING) 1
-
-#Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+```
+Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+```tcl
 echo $::env(SYNTH_DRIVING_CELL)
-
+```
 Now that the design is prepped and ready, we can run synthesis using following command
 run_synthesis
 <img width="1280" height="768" alt="Screenshot from 2026-07-16 13-19-27" src="https://github.com/user-attachments/assets/c5b3551f-c928-434e-93c4-d68a13031bd1" />
@@ -579,3 +582,56 @@ expand
 ```
 Abutment of power pins with other cell from library clearly visible
 <img width="1280" height="768" alt="Screenshot from 2026-07-16 16-29-03" src="https://github.com/user-attachments/assets/241fa0be-b157-4c37-a953-50a163e70248" />
+Commands to run STA in another terminal
+
+Change directory to openlane
+ ```bash
+cd Desktop/work/tools/openlane_working_dir/openlane
+```
+Command to invoke OpenSTA tool with script
+ ```bash
+sta pre_sta.conf
+```
+ # Day 5  Final steps for RTL2GDS using tritonRoute and openSTA
+ 1. Perform generation of Power Distribution Network (PDN) and explore the PDN layout.
+Commands to perform all necessary stages up until now
+
+Change directory to openlane flow directory
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+#alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/openlane:v0.21'
+Since we have aliased the long command to 'docker' we can invoke the OpenLANE flow docker sub-system by just running this command
+docker
+Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
+
+Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+package require openlane 0.9
+
+Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a
+
+Addiitional commands to include newly added lef to openlane flow merged.lef
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+
+Following commands are alltogather sourced in "run_floorplan" command
+
+
+Now we are ready to run placement
+run_placement
+
+With placement done we are now ready to run CTS
+run_cts
+
+Now that CTS is done we can do power distribution network
+gen_pdn 
