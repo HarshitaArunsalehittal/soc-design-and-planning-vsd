@@ -465,6 +465,7 @@ magic -d XR &
 <img width="1366" height="662" alt="Screenshot from 2026-07-15 21-35-40" src="https://github.com/user-attachments/assets/ccaf29e7-03b7-4fee-b286-474b018d0305" />
 <img width="1366" height="662" alt="Screenshot from 2026-07-15 21-38-25" src="https://github.com/user-attachments/assets/30e8153b-57ce-4983-b5b6-ebff601fb101" />
 <img width="1366" height="662" alt="Screenshot from 2026-07-15 22-01-46" src="https://github.com/user-attachments/assets/4b5954ba-137b-4969-a9f4-c3f9843dd6f7" />
+
 # Day 4  Pre-layout timing analysis and importance of good clock tree 
 
 Commands to open the custom inverter layout
@@ -498,5 +499,76 @@ Command to save as
 save sky130_vsdinv.mag
 ```
 <img width="1280" height="768" alt="Screenshot from 2026-07-16 12-36-59" src="https://github.com/user-attachments/assets/a2f6a5db-9e01-4cee-b98c-02a838523758" />
-## Generate lef from the layout
+
+Generate lef from the layout
  Command for tkcon window to write lef
+ lef command
+ ```bash
+lef write
+```
+<img width="1280" height="768" alt="Screenshot from 2026-07-16 12-41-33" src="https://github.com/user-attachments/assets/6acda66f-ec6f-4f91-a706-28860f6be8f1" />
+
+Run openlane flow synthesis with newly inserted custom inverter cell
+Commands to invoke the OpenLANE flow include new lef and perform synthesis
+
+Change directory to openlane flow directory
+cd Desktop/work/tools/openlane_working_dir/openlane
+docker
+
+Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
+
+Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+package require openlane 0.9
+
+Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a -tag 13-07_17-15 -overwrite
+
+Adiitional commands to include newly added lef to openlane flow
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+Command to display current value of variable SYNTH_STRATEGY
+echo $::env(SYNTH_STRATEGY)
+
+Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled
+echo $::env(SYNTH_BUFFERING)
+
+Command to display current value of variable SYNTH_SIZING
+echo $::env(SYNTH_SIZING)
+
+Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+#Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+echo $::env(SYNTH_DRIVING_CELL)
+
+Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+<img width="1280" height="768" alt="Screenshot from 2026-07-16 13-19-27" src="https://github.com/user-attachments/assets/c5b3551f-c928-434e-93c4-d68a13031bd1" />
+<img width="1280" height="768" alt="Screenshot from 2026-07-16 14-42-05" src="https://github.com/user-attachments/assets/cfde78c8-6eca-4372-85cb-e99e2d69f7a4" />
+<img width="1280" height="768" alt="Screenshot from 2026-07-16 16-04-04" src="https://github.com/user-attachments/assets/07a85dbb-7264-48f2-9ddd-333f0eacabc9" />
+
+Now we are ready to run placement
+run_placement
+
+Commands to load placement def in magic in another terminal
+
+Change directory to path containing generated placement def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/24-03_10-03/results/placement/
+
+Command to load the placement def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+Screenshot of placement def in magic
+<img width="1280" height="768" alt="Screenshot from 2026-07-16 16-13-41" src="https://github.com/user-attachments/assets/d1cc3e7c-92c2-4705-890e-7f371ba6f3ae" />
+<img width="1280" height="768" alt="Screenshot from 2026-07-16 16-18-09" src="https://github.com/user-attachments/assets/84b0c9c2-71db-4871-8349-1346590ba375" />
+Command for tkcon window to view internal layers of cells
+
+Command to view internal connectivity layers
+ ```bash
+expand
+```
+Abutment of power pins with other cell from library clearly visible
+<img width="1280" height="768" alt="Screenshot from 2026-07-16 16-29-03" src="https://github.com/user-attachments/assets/241fa0be-b157-4c37-a953-50a163e70248" />
