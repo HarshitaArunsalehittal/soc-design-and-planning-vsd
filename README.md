@@ -376,4 +376,28 @@ magic -T sky130A.tech sky130_inv.mag &
  Load the custom inverter layout in magic and explore
  Screenshot of custom inverter layout in magic
  <img width="1366" height="662" alt="Screenshot from 2026-07-17 12-26-28" src="https://github.com/user-attachments/assets/a66eb718-644a-46b6-b431-6c2e7d6f6c6f" />
+ <img width="1366" height="768" alt="Screenshot 2026-07-14 181709" src="https://github.com/user-attachments/assets/be46d665-a212-4e7e-9fdb-4557a1e7d5ad" />
+
+ Spice extraction of inverter in magic.
+ Commands for spice extraction of the custom inverter layout to be used in tkcon window of magic
+Check current directory
+```bash
+pwd
+```
+Extraction command to extract to .ext format
+```bash
+extract all
+```
+
+Before converting ext to spice this command enable the parasitic extraction also
+```bash
+ext2spice cthresh 0 rthresh 0
+```
+Converting to ext to spice
+```bash
+ext2spice
+```
+<img width="1366" height="768" alt="Screenshot 2026-07-14 183901" src="https://github.com/user-attachments/assets/247cce47-91ed-4431-9426-242122bbafc0" />
+
+
 
