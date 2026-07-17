@@ -653,7 +653,9 @@ gen_pdn
 ```
 <img width="828" height="436" alt="Screenshot 2026-07-17 182948" src="https://github.com/user-attachments/assets/f9536d18-b6b0-4b1e-b1f4-515dc6a87be5" />
 <img width="807" height="409" alt="Screenshot 2026-07-17 183021" src="https://github.com/user-attachments/assets/800cce52-e90f-420b-baa0-460a0426c702" />
+
 Commands to load PDN def in magic in another terminal
+
 Change directory to path containing generated PDN def
 ```bash
 cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/26-03_08-45/tmp/floorplan/
@@ -663,9 +665,12 @@ Command to load the PDN def in magic tool
 magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def &
 ```
 Screenshots of PDN def
+
 <img width="727" height="404" alt="Screenshot 2026-07-17 183223" src="https://github.com/user-attachments/assets/ecc7237d-f98b-4061-b742-35538a27a4f5" />
 <img width="834" height="447" alt="Screenshot 2026-07-17 183243" src="https://github.com/user-attachments/assets/133743c3-cc46-4387-b948-0b46783d01d0" />
 <img width="784" height="454" alt="Screenshot 2026-07-17 183303" src="https://github.com/user-attachments/assets/7a196f68-7211-4abc-9876-12f9e450b25c" />
+
+
 Commands to load routed def in magic in another terminal
 
 Change directory to path containing routed def
