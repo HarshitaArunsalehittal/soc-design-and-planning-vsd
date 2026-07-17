@@ -93,6 +93,7 @@ Important folders include:
 - pdks
 
 **Screenshot**
+<img width="1366" height="662" alt="imagesday1openlane_directory" src="https://github.com/user-attachments/assets/bea37d90-d006-4121-9548-b863767d7442" />
 
 ![OpenLANE Directory](images/day1/openlane_directory.png)
 
