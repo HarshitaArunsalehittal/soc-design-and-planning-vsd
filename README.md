@@ -376,7 +376,7 @@ magic -T sky130A.tech sky130_inv.mag &
  Load the custom inverter layout in magic and explore
  Screenshot of custom inverter layout in magic
  <img width="1366" height="662" alt="Screenshot from 2026-07-17 12-26-28" src="https://github.com/user-attachments/assets/a66eb718-644a-46b6-b431-6c2e7d6f6c6f" />
- <img width="1366" height="768" alt="Screenshot 2026-07-14 181709" src="https://github.com/user-attachments/assets/be46d665-a212-4e7e-9fdb-4557a1e7d5ad" />
+
 
  Spice extraction of inverter in magic.
  Commands for spice extraction of the custom inverter layout to be used in tkcon window of magic
@@ -399,5 +399,88 @@ ext2spice
 ```
 <img width="1366" height="768" alt="Screenshot 2026-07-14 183901" src="https://github.com/user-attachments/assets/247cce47-91ed-4431-9426-242122bbafc0" />
 
+Screenshot of created spice file
+<img width="1366" height="768" alt="Screenshot 2026-07-14 184037" src="https://github.com/user-attachments/assets/867be972-3110-4752-b147-cab00a13046e" />
+ Editing the spice model file for analysis through simulation.
+Measuring unit distance in layout grid
+<img width="1366" height="768" alt="Screenshot 2026-07-15 164054" src="https://github.com/user-attachments/assets/0a6267ce-1133-4959-980e-c7fc00758ef5" />
+
+<img width="1366" height="768" alt="Screenshot 2026-07-14 184743" src="https://github.com/user-attachments/assets/42f4a107-97eb-48ac-9e1b-adee273796a0" />
+
+Final edited spice file ready for ngspice simulation
+<img width="1366" height="662" alt="Screenshot from 2026-07-17 13-06-10" src="https://github.com/user-attachments/assets/a40d1185-0fe0-4777-b2e9-3b92b8e97bd2" />
+
+Post-layout ngspice simulations.
+Commands for ngspice simulation
+Command to directly load spice file for simulation to ngspice
+```bash
+ngspice sky130_inv.spice
+```
+Now that we have entered ngspice with the simulation spice file loaded we just have to load the plot
+```bash
+plot y vs time a
+```
+Screenshots of ngspice run
+<img width="1366" height="768" alt="Screenshot 2026-07-15 171539" src="https://github.com/user-attachments/assets/934af055-4b9b-44f8-b5e2-4a90e49bcf9f" />
+<img width="1366" height="768" alt="Screenshot 2026-07-15 172513" src="https://github.com/user-attachments/assets/3a1f20bf-a67e-4229-bfae-10c9860634c2" />
+<img width="1366" height="768" alt="Screenshot 2026-07-15 173250" src="https://github.com/user-attachments/assets/112c5825-556a-40fa-80b0-6d5ec79412d4" />
+<img width="1366" height="768" alt="Screenshot 2026-07-15 173341" src="https://github.com/user-attachments/assets/29b03a43-ab80-4c1a-9ede-5b349326f504" />
+Find problem in the DRC section of the old magic tech file for the skywater process and fix them.
+
+Link to Sky130 Periphery rules: https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html
+
+Commands to download and view the corrupted skywater process magic tech file and associated files to perform drc corrections
+
+Change to home directory
+```bash
+cd
+
+Command to download the lab files
+```bash
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+```
+Since lab file is compressed command to extract it
+```bash
+tar xfz drc_tests.tgz
+```Incorrectly implemented poly.9 rule no drc violation even though spacing < 0.48u
+Change directory into the lab folder
+```bash
+cd drc_tests
+```
+List all files and directories present in the current directory
+```bash
+ls -ltr
+```
+Command to open magic tool in better graphics
+```bash
+magic -d XR &
+```
+<img width="1280" height="768" alt="Screenshot from 2026-07-15 19-50-11" src="https://github.com/user-attachments/assets/f2994fcf-7091-49f7-9132-8729bfedffd0" />
+<img width="1280" height="768" alt="Screenshot from 2026-07-15 19-50-22" src="https://github.com/user-attachments/assets/b73c07e7-d4a3-4adc-9691-e1fecf1e0a52" />
+<img width="1280" height="768" alt="Screenshot from 2026-07-15 19-50-29" src="https://github.com/user-attachments/assets/5c47c3d3-124e-4823-b8f2-b7fa838288f9" />
+<img width="1280" height="768" alt="Screenshot from 2026-07-15 20-06-28" src="https://github.com/user-attachments/assets/315da798-ea1c-4b46-9cf7-19e93093ad86" />
+<img width="1366" height="662" alt="Screenshot from 2026-07-15 20-58-54" src="https://github.com/user-attachments/assets/de8815fe-3180-4449-924f-3ca49da2af25" />
 
 
+<img width="1366" height="662" alt="Screenshot from 2026-07-15 21-35-40" src="https://github.com/user-attachments/assets/ccaf29e7-03b7-4fee-b286-474b018d0305" />
+<img width="1366" height="662" alt="Screenshot from 2026-07-15 21-38-25" src="https://github.com/user-attachments/assets/30e8153b-57ce-4983-b5b6-ebff601fb101" />
+<img width="1366" height="662" alt="Screenshot from 2026-07-15 22-01-46" src="https://github.com/user-attachments/assets/4b5954ba-137b-4969-a9f4-c3f9843dd6f7" />
+# Day 4  Pre-layout timing analysis and importance of good clock tree 
+
+Commands to open the custom inverter layout
+ Change directory to vsdstdcelldesign
+```bash
+cd Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+```
+Command to open custom inverter layout in magic
+```bash
+magic -T sky130A.tech sky130_inv.mag &
+```
+
+
+Commands for tkcon window to set grid as tracks of locali layer
+Get syntax for grid command
+help grid
+
+Set grid values accordingly
+grid 0.46um 0.34um 0.23um 0.17um
