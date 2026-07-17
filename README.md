@@ -1,4 +1,4 @@
-<img width="807" height="409" alt="Screenshot 2026-07-17 183021" src="https://github.com/user-attachments/assets/26fb916f-b77b-4953-b523-9f6449e8dbea" /># VSD SoC Design Workshop
+ SoC Design Workshop
 
 ## Author
 **Harshita Arun Salehittal**
