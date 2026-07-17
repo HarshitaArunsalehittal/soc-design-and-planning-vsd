@@ -95,7 +95,7 @@ Important folders include:
 **Screenshot**
 <img width="1366" height="662" alt="imagesday1openlane_directory" src="https://github.com/user-attachments/assets/bea37d90-d006-4121-9548-b863767d7442" />
 
-![OpenLANE Directory](images/day1/openlane_directory.png)
+
 
 ---
 
@@ -113,7 +113,8 @@ Important contents include:
 
 **Screenshot**
 
-![PDK Structure](images/day1/pdk_structure.png)
+
+
 
 ---
 
@@ -156,8 +157,10 @@ package require openlane 0.9
 ```
 
 ---
+<img width="1280" height="768" alt="Screenshot from 2026-07-13 09-46-39" src="https://github.com/user-attachments/assets/659e3668-7d99-4d83-957c-6b6d089b49e9" />
 
 ## Design Preparation
+
 
 Prepare the design before running synthesis.
 
@@ -165,11 +168,12 @@ Prepare the design before running synthesis.
 prep -design picorv32a
 ```
 
+
 This command creates the working directory and loads all configuration files needed for implementation.
 
 **Screenshot**
+<img width="1280" height="768" alt="Screenshot from 2026-07-13 09-56-06" src="https://github.com/user-attachments/assets/155c4e72-9d5b-4170-978a-93b28aea1f00" />
 
-![Preparation](images/day1/prep_design.png)
 
 ---
 
@@ -193,7 +197,8 @@ After synthesis, OpenLANE generates reports containing:
 
 **Screenshot**
 
-![Synthesis Output](images/day1/synthesis.png)
+<img width="1280" height="768" alt="Screenshot from 2026-07-13 10-08-01" src="https://github.com/user-attachments/assets/b1526bc6-3e7a-472c-83f8-7697ac643c7b" />
+
 
 ---
 
