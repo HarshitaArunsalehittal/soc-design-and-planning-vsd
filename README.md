@@ -315,10 +315,10 @@ This command creates:
 
  Load generated floorplan def in magic tool and explore the floorplan.
 Commands to load floorplan def in magic in another terminal
-# Change directory to path containing generated floorplan def
+Change directory to path containing generated floorplan def
 cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/17-03_12-06/results/floorplan/
 
-# Command to load the floorplan def in magic tool
+Command to load the floorplan def in magic tool
 magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
 
 
@@ -328,7 +328,7 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
  Run 'picorv32a' design congestion aware placement using OpenLANE flow and generate necessary outputs.
 
-# Congestion aware placement by default
+ Congestion aware placement by default
 run_placement
 
 <img width="1366" height="768" alt="Screenshot from 2026-07-13 22-53-35" src="https://github.com/user-attachments/assets/142b9358-f12a-4f07-a22f-33d6fead18c2" />
@@ -336,10 +336,10 @@ run_placement
 . Load generated placement def in magic tool and explore the placement.
 Commands to load placement def in magic in another terminal
 
-# Change directory to path containing generated placement def
+Change directory to path containing generated placement def
 cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/17-03_12-06/results/placement/
 
-# Command to load the placement def in magic tool
+ Command to load the placement def in magic tool
 magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
 Screenshots of floorplan def in magic
 
