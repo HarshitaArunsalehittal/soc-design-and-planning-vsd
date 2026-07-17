@@ -476,11 +476,27 @@ Command to open custom inverter layout in magic
 ```bash
 magic -T sky130A.tech sky130_inv.mag &
 ```
+<img width="1366" height="662" alt="Screenshot from 2026-07-16 11-19-34" src="https://github.com/user-attachments/assets/0998102b-dc41-4baf-bf73-01bd429c39ea" />
 
 
 Commands for tkcon window to set grid as tracks of locali layer
 Get syntax for grid command
+```bash
 help grid
-
+```
 Set grid values accordingly
+```bash
 grid 0.46um 0.34um 0.23um 0.17um
+```
+<img width="1366" height="662" alt="Screenshot from 2026-07-16 11-27-06" src="https://github.com/user-attachments/assets/5e96bb1c-c010-4f6b-911d-1b48e13c2900" />
+<img width="1366" height="662" alt="Screenshot from 2026-07-16 11-26-37" src="https://github.com/user-attachments/assets/46842ea6-0f47-4968-afcb-9459e3273f72" />
+
+ Save the finalized layout with custom name and open it.
+ Command for tkcon window to save the layout with custom name
+Command to save as
+```bash
+save sky130_vsdinv.mag
+```
+<img width="1280" height="768" alt="Screenshot from 2026-07-16 12-36-59" src="https://github.com/user-attachments/assets/a2f6a5db-9e01-4cee-b98c-02a838523758" />
+## Generate lef from the layout
+ Command for tkcon window to write lef
