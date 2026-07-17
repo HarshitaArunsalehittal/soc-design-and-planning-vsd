@@ -77,9 +77,6 @@ The workshop environment contains different directories that are required during
 
 The **tools** directory stores the software packages used throughout the workshop, including OpenLANE and supporting EDA applications.
 
-**Screenshot**
-
-![Tools Directory](images/day1/tools_directory.png)
 
 ---
 
@@ -354,20 +351,24 @@ labs
 
 #Day 3 Design library cell using Magic Layout and ngspice characterization
  Clone custom inverter standard cell design from github repository
-# Change directory to openlane
-cd Desktop/work/tools/openlane_working_dir/openlane
 
-# Clone the repository with custom inverter design
+```bash
+cd Desktop/work/tools/openlane_working_dir/openlane
+```
+Clone the repository with custom inverter design
 git clone https://github.com/nickson-jose/vsdstdcelldesign
 
-# Change into repository directory
+Change into repository directory
+```bash
 cd vsdstdcelldesign
-
-# Copy magic tech file to the repo directory for easy access
+```
+Copy magic tech file to the repo directory for easy access
+```bash
 cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech .
-
-# Check contents whether everything is present
+```
+Check contents whether everything is present
+```bash
 ls
-
-# Command to open custom inverter layout in magic
+```
+Command to open custom inverter layout in magic
 magic -T sky130A.tech sky130_inv.mag &
