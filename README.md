@@ -592,6 +592,8 @@ Command to invoke OpenSTA tool with script
  ```bash
 sta pre_sta.conf
 ```
+<img width="842" height="468" alt="Screenshot 2026-07-17 175833" src="https://github.com/user-attachments/assets/428293d0-83a5-4842-a157-dc4db3a1ec5a" />
+
  # Day 5  Final steps for RTL2GDS using tritonRoute and openSTA
  1. Perform generation of Power Distribution Network (PDN) and explore the PDN layout.
 Commands to perform all necessary stages up until now
