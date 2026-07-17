@@ -349,7 +349,7 @@ On Day 2, I learned the complete floorplanning process and understood how the sy
 labs
 . Clone custom inverter standard cell design from github repository
 
-#Day 3 Design library cell using Magic Layout and ngspice characterization
+# Day 3 Design library cell using Magic Layout and ngspice characterization
  Clone custom inverter standard cell design from github repository
 
 ```bash
