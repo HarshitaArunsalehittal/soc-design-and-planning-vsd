@@ -227,5 +227,227 @@ flop ratio=0.108429685
 
 On the first day, I became familiar with the complete ASIC design flow and the OpenLANE environment. I successfully explored the Sky130 PDK, understood the directory structure, prepared the design, and executed RTL synthesis. The generated synthesis reports provided valuable information about area, cell usage, and timing characteristics.
 
+# Day 2 – Floorplanning and Placement
 
+## Objective
+
+The second day focused on understanding the physical implementation stage after logic synthesis. The session covered floorplanning, power planning, standard cell placement, and the influence of library cells on chip area and timing.
+
+---
+
+## Overview
+
+After synthesis generates the gate-level netlist, the design enters the physical design stage. During this phase, the logical components are assigned physical locations on the chip while satisfying timing, routing, and area constraints.
+
+The major stages covered include:
+
+- Floorplanning
+- Power Planning
+- Standard Cell Placement
+- Cell Library Characterization
+
+---
+
+# Floorplanning
+
+Floorplanning is the process of defining the chip dimensions and arranging major design blocks before placement begins.
+
+Its primary objectives are:
+
+- Determine chip size
+- Define core and die area
+- Reserve routing space
+- Optimize utilization
+- Improve timing performance
+
+
+# Important Floorplan Parameters
+
+### Utilization Factor
+
+Utilization represents the percentage of core area occupied by standard cells.
+
+A very high utilization leaves little routing space, whereas very low utilization wastes chip area.
+
+Typical utilization values range from **50% to 70%** depending on the design complexity.
+
+---
+
+### Aspect Ratio
+
+Aspect ratio is defined as:
+
+Aspect Ratio = Height / Width
+
+A value of **1** represents a square core.
+
+Different aspect ratios may be selected depending on routing and timing requirements.
+
+---
+
+## Running Floorplan
+
+The floorplanning stage is executed using the following command:
+
+```tcl
+run_floorplan
+```
+
+This command creates:
+
+- Core area
+- Die area
+- Standard cell rows
+- Placement region
+- Power distribution planning
+
+**Screenshot**
+
+<img width="1280" height="768" alt="Screenshot from 2026-07-13 17-11-09" src="https://github.com/user-attachments/assets/35f8935b-b198-4799-842b-71c9eacb0ccd" />
+
+<img width="1280" height="768" alt="Screenshot from 2026-07-13 17-12-14" src="https://github.com/user-attachments/assets/001c31fd-8f1d-439a-a36f-63c727938a5a" />
+
+---
+
+# Floorplan Output Files
+
+After successful execution, OpenLANE generates several important files.
+
+These include:
+
+- DEF file
+- Configuration files
+- Floorplan reports
+- Log files
+
+The DEF file stores the physical layout information generated during floorplanning.
+
+---
+
+# Viewing the Floorplan in Magic
+
+The generated DEF file can be visualized using Magic.
+
+Example command:
+
+```bash
+magic -T sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+```
+<img width="1366" height="768" alt="Screenshot from 2026-07-14 13-12-50" src="https://github.com/user-attachments/assets/6c67425f-ea5f-4421-8aa3-42aedcd26db1" />
+
+Magic displays:
+
+- Chip boundary
+- Core boundary
+- Standard cell rows
+- IO pins
+<img width="1280" height="768" alt="Screenshot from 2026-07-13 17-31-05" src="https://github.com/user-attachments/assets/e00ae630-4f4d-42f8-86a5-08026a880c4c" />
+
+**Screenshot**
+
+<img width="1366" height="768" alt="Screenshot from 2026-07-13 19-37-20" src="https://github.com/user-attachments/assets/1959f4f7-b894-4f7b-9273-e7e6a9a6a90f" />
+<img width="1280" height="768" alt="Screenshot from 2026-07-13 17-34-26" src="https://github.com/user-attachments/assets/ce3dbec1-a4ec-4c1f-8dcf-b13f97bf7e3a" />
+
+
+---
+
+# Power Planning
+
+Power planning ensures reliable power delivery across the entire chip.
+
+It involves creating:
+
+- VDD rails
+- Ground rails
+- Power straps
+- Power rings
+
+A proper power network minimizes voltage drop and improves circuit stability.
+
+**Screenshot**
+
+![Power Planning](Paste your screenshot here)
+
+---
+
+# Standard Cell Placement
+
+Placement assigns every standard cell to a legal position inside the core.
+
+The objectives are:
+
+- Reduce wirelength
+- Improve timing
+- Avoid cell overlap
+- Optimize routing resources
+
+OpenLANE automatically performs placement after floorplanning.
+
+Command:
+
+```tcl
+run_placement
+```
+
+**Screenshot**
+
+![Placement Result](Paste your screenshot here)
+
+---
+
+# Viewing Placement in Magic
+
+The placement DEF file can be opened in Magic using:
+
+```bash
+magic -T sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
+
+The placement view displays:
+
+- Standard cells
+- IO pins
+- Core boundary
+
+**Screenshot**
+
+![Placement in Magic](Paste your screenshot here)
+
+---
+
+# Cell Library Characterization
+
+Standard cells are designed using different optimization goals.
+
+Common library types include:
+
+- High Density (HD)
+- High Speed (HS)
+- Low Power (LP)
+
+Each library provides different trade-offs between:
+
+- Area
+- Delay
+- Power consumption
+
+Selecting the appropriate library depends on the application requirements.
+
+---
+
+# Observations
+
+During this lab I observed that:
+
+- Floorplanning defines the physical structure of the chip.
+- Utilization and aspect ratio directly influence placement quality.
+- Power planning improves power distribution.
+- Placement determines the physical location of all standard cells.
+- Magic provides a graphical representation of the generated DEF files.
+
+---
+
+# Conclusion
+
+On Day 2, I learned the complete floorplanning process and understood how the synthesized design is converted into a physical layout. I explored utilization, aspect ratio, power planning, and standard cell placement using OpenLANE and visualized the generated layouts in Magic.
 
